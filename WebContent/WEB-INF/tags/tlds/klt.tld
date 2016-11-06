@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE taglib
+  PUBLIC "-//Sun Microsystems, Inc.//DTD JSP Tag Library 1.2//EN"
+  "http://java.sun.com/dtd/web-jsptaglibrary_1_2.dtd">
+<taglib>
+	<tlib-version>1.0</tlib-version>
+	<jsp-version>1.2</jsp-version>
+	<short-name>klt</short-name>
+	<uri>http://lyu.klt.tags.core</uri>
+	<display-name>klt extended library</display-name>
+	<description>klt 1.0 core library</description>
+
+	<tag>
+		<name>isEmpty</name>
+		<tag-class>
+			lyu.klt.frame.tags.IsEmptyTag
+		</tag-class>
+		<body-content>JSP,TAG</body-content>
+		<description>
+			supply default value if the input is empty
+		</description>
+		<attribute>
+			<name>value</name>
+			<required>true</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<name>defaultValue</name>
+			<required>true</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+	</tag>
+
+	<tag>
+		<name>operationAccess</name>
+		<tag-class>
+			web.localtax.tags.OperationAccessTag
+		</tag-class>
+		<body-content>JSP</body-content>
+		<description>
+			tag body will be evaluated when has access rights
+		</description>
+		<attribute>
+			<name>code</name>
+			<required>true</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+	</tag>
+</taglib>
