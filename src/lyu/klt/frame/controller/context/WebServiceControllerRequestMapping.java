@@ -77,6 +77,7 @@ public class WebServiceControllerRequestMapping {
 
 				String servletPath = String.format("/%s%s", moduleName,
 						ConfigController.getWebServiceSuffix());
+				//System.out.println("servletPath:"+servletPath+"    moduleName:"+moduleName);
 
 				if (this.webServiceControllerServletPathMapping
 						.containsKey(servletPath)) {

@@ -1,2 +1,2 @@
-basePackageToScan=lyu.klt,web,demo
+basePackageToScan=lyu.klt,web
 webServiceSuffix=.service

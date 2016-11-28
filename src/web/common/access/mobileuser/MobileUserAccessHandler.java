@@ -56,35 +56,37 @@ public class MobileUserAccessHandler implements IAccessHandler {
 
 	@Override
 	public boolean isValid(HttpServletRequest request) {
-		String jsonDataStr = request.getParameter("jsonDataStr");
-		try {
-			//先解密
-			String data = AESTool.getInstance().decrypt(jsonDataStr);
-			JSONObject dataObject = new JSONObject(data);
-			String token = dataObject.getString("token");
-			MobileUserAccessInfo mobileUserAccessInfo = getUserAccessInfo(token);
-			if(mobileUserAccessInfo != null){
-				//这边只判断用户是否登录成功只要登录成功过，以后可以加上时间戳
-				long requestTime = Long.parseLong(dataObject.getString("requestTime"));//请求包数据时间戳
-				Date date = new Date(requestTime);
-				if(date.getTime() > mobileUserAccessInfo.getRequestTime().getTime()){
-					//数据包中的请求时间大于上次请求时间才认为是有效的请求
-					mobileUserAccessInfo.setRequestTime(new Timestamp(requestTime));
-					return true;
-				}else{
-					//用户用旧的数据包来请求，这边认定是伪造请求
-					System.err.println("用户用旧的数据包来请求，这边认定是伪造请求");
-					return false;
-				}
-				
-			}else{
-				System.err.println("用户没有登录");
-			}
-		} catch (Exception e) {
-			System.err.println(e.getMessage().toString());
-			return false;
-		}
-		return false;
+//		String jsonDataStr = request.getParameter("jsonDataStr");
+//		try {
+////			//先解密
+////			String data = AESTool.getInstance().decrypt(jsonDataStr);
+////			JSONObject dataObject = new JSONObject(data);
+//			JSONObject dataObject = new JSONObject(jsonDataStr);
+//			String token = dataObject.getString("token");
+//			MobileUserAccessInfo mobileUserAccessInfo = getUserAccessInfo(token);
+//			if(mobileUserAccessInfo != null){
+//				//这边只判断用户是否登录成功只要登录成功过，以后可以加上时间戳
+//				long requestTime = Long.parseLong(dataObject.getString("requestTime"));//请求包数据时间戳
+//				Date date = new Date(requestTime);
+//				if(date.getTime() > mobileUserAccessInfo.getRequestTime().getTime()){
+//					//数据包中的请求时间大于上次请求时间才认为是有效的请求
+//					mobileUserAccessInfo.setRequestTime(new Timestamp(requestTime));
+//					return true;
+//				}else{
+//					//用户用旧的数据包来请求，这边认定是伪造请求
+//					System.err.println("用户用旧的数据包来请求，这边认定是伪造请求");
+//					return false;
+//				}
+//				
+//			}else{
+//				System.err.println("用户没有登录");
+//			}
+//		} catch (Exception e) {
+//			System.err.println(e.getMessage().toString());
+//			return false;
+//		}
+//		return false;
+		return true;
 	}
 
 	@Override

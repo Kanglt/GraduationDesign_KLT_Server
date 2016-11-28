@@ -129,7 +129,7 @@ public class SystemCodeDataService {
 			Timestamp queryCreateTimeEnd, Integer page, Integer pageSize,
 			String operatorId, String operatorAddress) throws Exception {
 
-		Procedure procedure = new Procedure("sp_fjzx_frame_system_code_query");
+		Procedure procedure = new Procedure("sp_klt_frame_system_code_query");
 
 		procedure.addParameterString("queryId", queryId);
 
@@ -167,7 +167,7 @@ public class SystemCodeDataService {
 	private ProcedureResult sp_fjzx_frame_system_code_read(String id,
 			String operatorId, String operatorAddress) throws Exception {
 
-		Procedure procedure = new Procedure("sp_fjzx_frame_system_code_read");
+		Procedure procedure = new Procedure("sp_klt_frame_system_code_read");
 
 		procedure.addParameterString("id", id);
 		procedure.addParameterString("operatorId", operatorId);
@@ -265,7 +265,7 @@ public class SystemCodeDataService {
 			throws Exception {
 
 		Procedure procedure = new Procedure(
-				"sp_fjzx_frame_component_select_system_code_query");
+				"sp_klt_frame_component_select_system_code_query");
 
 		procedure.addParameterString("selectType", selectType);
 		procedure.addParameterString("queryValue", queryValue);

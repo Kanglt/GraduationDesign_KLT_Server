@@ -1,0 +1,239 @@
+<%@ page language="java" pageEncoding="UTF-8" errorPage="error.jsp"%>
+<%@ taglib prefix="fjzx" tagdir="/WEB-INF/tags/"%>
+
+<%-- --%>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<fjzx:basePath />
+		<fjzx:meta title="{module_caption}" />
+		<fjzx:css />
+		<fjzx:preScript />
+	</head>
+	<body>
+		<div class="wrap-overflow p20">
+			<div id="tabs" class="fjzx-prog-page-tabs-container">
+				<%-- 反注释以下代码(1/2)，可启用tab页签功能 --%>
+				<%--
+				<ul class="fjzx-prog-page-tabs-nav">
+					<li fjzx_prog_tab_target="tabHeader" class="fjzx-prog-page-tabs-nav-active">{module_caption}</li>
+					<li fjzx_prog_tab_target="tabDetail">明细</li>
+					<li fjzx_prog_tab_target="tabDisabled" class="fjzx-prog-page-tabs-nav-disabled">已禁用的页签</li>
+				</ul>
+				--%>
+				<div class="fjzx-prog-page-tabs-content"><%-- 本div不可以删除，类名fjzx-prog-page-tabs-content也不可以删除，在fjzx-jquery-ui.js会用到 --%>
+					<div id="tabHeader" class="fjzx-prog-page-tabs-content-active wrap-overflow">
+						<div class="search-form-box">
+							<form id="fjzx-prog-queryForm-{module_name_lower_case_first_character}">
+								<div class="query-form search-form-list-layout c">
+									<ul class="fjzx-prog-query-form-list ca">
+										<%--带css类fjzx-prog-query-form-list-item-collapsed的li在页面打开后都不显示，点击“更多查询条件”后才会显示，如下例子：
+										<li class="fjzx-prog-query-form-list-item-collapsed"></li>
+										--%>
+{query_from_input}
+									</ul>
+								</div>
+								<div class="search-form-button-container">
+									<button class="btn btn-primary" type="submit"><span class="fa-search mr6"></span>查询</button>
+									<button class="fjzx-prog-reset btn btn-primary" type="reset"><span class="fa-refresh mr6"></span>重置查询条件</button>
+									<button class="fjzx-prog-new-{module_name_lower_case_first_character} btn btn-success" type="button"><span class="fa-plus mr6"></span>新增记录</button>
+									<button class="fjzx-prog-button-query-form-expand btn btn-link r" type="button">更多查询条件&nbsp;<span class="icon fa-double-angle-down"></span></span></button>
+									<button class="fjzx-prog-button-query-form-collapse btn btn-link r" type="button">隐藏更多查询条件&nbsp;<span class="icon fa-double-angle-up"></span></button>
+								</div>
+							</form>
+						</div>
+						<div class="fjzx-list-container">
+							<div id="fjzx-prog-list-{module_name_lower_case_first_character}" class="wrap-overflow"></div>
+						</div>
+					</div>
+					<%--
+					<div id="tabDetail" class="wrap-overflow">
+					</div>
+					<div id="tabDisabled" class="wrap-overflow">
+					</div>
+					--%>
+				</div>
+			</div>
+		</div>
+		<!-- Modal -->
+		<div id="fjzx-prog-form-dialog-{module_name_lower_case_first_character}" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+			<div class="modal-header">
+				<button type="button" class="fjzx-prog-close close" aria-hidden="true">×</button>
+				<h3 id="myModalLabel">详细</h3>
+			</div>
+			<div class="modal-body" style="min-height: 400px;max-height: 600px;">
+				<form class="form-horizontal">
+{form_dialog_input}
+				</form>
+			</div>
+			<div class="modal-footer">
+				<button class="fjzx-prog-cancel btn"><span class='fa-remove mr6'></span>取消</button>
+				<button class="fjzx-prog-ok btn btn-primary"><span class='fa-save mr6'></span>保存</button>
+			</div>
+		</div>
+		<fjzx:postScript />
+		<script src="${basePath}js/webservice/{module_name}.js"></script>
+		<script>
+			$(function(){
+				<%-- 反注释以下代码(2/2)，可启用tab页签功能 --%>
+				<%--
+				//创建标签页
+				var tabs = new fjzx.ui.PageTabs("div#tabs");
+				tabs.addOnTabActiveListener("tabDetail",function(){
+					
+				});
+				tabs.gotoTab("tabDetail");
+				tabs.enableTab("tabDisabled", true);
+				--%>
+				
+				<%--列表--%>
+				var recordList{module_name} = fjzx.ui.createList("div#fjzx-prog-list-{module_name_lower_case_first_character}");
+				<%--查询框--%>
+				recordList{module_name}.setQueryForm("form#fjzx-prog-queryForm-{module_name_lower_case_first_character}");
+				recordList{module_name}.setColumns([
+{record_list_caption}
+					{caption:"操作",width:100}
+				]);
+				<%--列表中一行元素的模板--%>
+				var itemView = "<tr fjzx_prog_id='{text:id}'>\
+{record_list_column}
+					<td>\
+						<button class='fjzx-prog-update btn btn-primary'><span class='fa-pencil mr6'></span>修改</button>\
+						<button class='fjzx-prog-remove btn'><span class='fa-remove mr6'></span>删除</button>\
+					</td>\
+				</tr>";
+				<%--为列表设置模板--%>
+				recordList{module_name}.setItemView(itemView);
+				<%--监听加载一页的事件，并为列表提供实际的列表数据--%>
+				recordList{module_name}.setOnLoadPageListener(function(page,queryFormDataStr,activeId){
+					<%--远程调用服务器中的方法获取列表数据--%>
+					{module_name}.get{module_name}List(
+						queryFormDataStr,
+						page,
+						function(data){
+							<%--使用获得的列表数据重建页面列表--%>
+							recordList{module_name}.buildList(data.list,data.sizeInfo,activeId);
+						},
+						function(){
+							
+						}
+					);					
+				});
+				<%--监听行元素创建的事件，可以在这里获得行元素，并为行元素做样式修改、得到子元素并监听其事件--%>
+				recordList{module_name}.setOnItemListener(function($item,record){
+					var id = record.id;
+					<%--列表的行可以点击，鼠标默认为手--%>
+					$item.css("cursor","pointer");
+					$item.click(function(){
+						recordList{module_name}.setActive($item);<%--设置当前行为选中行--%>
+					});
+					<%--监听修改按钮--%>
+					$item.find("button.fjzx-prog-update").click(function(e){
+						e.stopPropagation();<%--阻止点击事件传递给tr--%>
+						recordList{module_name}.setActive($item);<%--设置当前行为选中行--%>
+						
+						{module_name}.get{module_name}(
+							id,
+							function(data){
+								<%--open方法的第一个参数是data，值为data.record，则编辑框打开时所有输入组件的值都会自动设置为data.record的属性值--%>
+								formDialog{module_name}.open(data.record,function($container){
+								});
+							},
+							function(){
+								
+							}
+						);
+					});
+					<%--监听删除按钮--%>
+					$item.find("button.fjzx-prog-remove").click(function(e){
+						e.stopPropagation();<%--阻止点击事件传递给tr--%>
+						recordList{module_name}.setActive($item);<%--设置当前行为选中行--%>
+						recordList{module_name}.remove($item,function(eCallback){
+							{module_name}.delete{module_name}(
+								id,
+								record.recordVersion,
+								function(data){
+									<%--删除成功后重新加载列表--%>
+									recordList{module_name}.reload();
+								},
+								function(){
+									<%--此句照抄即可，作用是删除出错的时候，让TableList对象自行解除本行的高亮模式--%>
+									if(typeof(eCallback)== "function")
+										eCallback();
+								}
+							);
+						});
+					});
+					return true;
+				});
+				<%--在页面打开后立即加载第一页--%>
+				recordList{module_name}.load(1);
+				
+				<%--编辑框--%>
+				var options = {confirmCancel: true};<%--点击编辑框中的取消按钮时，是否需要确认--%>
+				var formDialog{module_name} = fjzx.ui.createFormDialog(
+					"div#fjzx-prog-form-dialog-{module_name_lower_case_first_character}",
+					function($container){<%--框架创建FormDialog对象成功时，会回调本方法，并将$container交给程序员使用--%>
+					<%--可以在这里对$container进行修改样式，添加监听事件等操作--%>
+					},
+					options
+				);
+				<%--监听新增按钮--%>
+				$("button.fjzx-prog-new-{module_name_lower_case_first_character}").click(function(e){
+					e.preventDefault();
+					e.stopPropagation();
+					<%--open方法的第一个参数是data，值为null，则编辑框打开时所有输入组件都是空白--%>
+					formDialog{module_name}.open(null,function($container){
+						$container.find("input[fjzx_field_name=version]").val(1);
+					});
+				});
+				<%--为button.fjzx-prog-ok添加处理动作--%>
+				formDialog{module_name}.find("button.fjzx-prog-ok").setAction(
+					function(record,formDataStr,$container){
+						if(record){<%--这个record是程序员调用FormDialog.open方法时传入的第一个参数data，如果record不为空，则认为是一个修改操作--%>
+							{module_name}.update{module_name}(
+								record.id,
+								record.recordVersion,
+								formDataStr,
+								function(data){<%--successfulCallback--%>
+									recordList{module_name}.reload(data.record.id);
+									formDialog{module_name}.close();
+								},
+								function(){<%--errorCallback--%>
+									
+								}
+							);
+						}else{<%--record为空，则认为是一个新增操作--%>
+							{module_name}.new{module_name}(
+								formDataStr,
+								function(data){<%--successfulCallback--%>
+									recordList{module_name}.load(1,data.record.id);
+									formDialog{module_name}.close();
+								},
+								function(){<%--errorCallback--%>
+									
+								}
+							);
+						}
+					}
+				);
+				<%--为button.fjzx-prog-cancel添加关闭对话框的操作--%>
+				formDialog{module_name}.find("button.fjzx-prog-cancel").setActionClose();
+				
+				
+				<%--查询条件中radio被点击时，直接重新查询列表，供参考--%>
+				<%--
+				$("[fjzx_field_name=query{module_name}PaymentType]").click(function(){
+					recordList{module_name}.load(1);
+				});
+				--%>
+				<%--查询条件中截止日期不可以早于起始日期的自动限制写法，供参考--%>
+				<%--
+				$("[fjzx_field_name=queryRegisterDateStart]").datepicker("option","onClose",function(selectedDate){
+					$("[fjzx_field_name=queryRegisterDateEnd]").datepicker("option","minDate",selectedDate);
+				});
+				--%>
+			});
+		</script>
+	</body>
+</html>

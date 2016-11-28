@@ -1,0 +1,8 @@
+private ProcedureResult {procedure_name}({param_name_input}) throws Exception {
+
+	Procedure procedure = new Procedure("{procedure_name}");
+
+{param_name_add_list}
+
+	return procedure.exec();
+}

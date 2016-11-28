@@ -79,7 +79,7 @@ public class Initializer extends HttpServlet {
 			try {
 				if (clazz.isAnnotationPresent(ResourceLanguage.class)) {
 					Object resource = clazz.newInstance();
-					if (resource instanceof IResourceLanguage)
+				 	if (resource instanceof IResourceLanguage)
 						log.error(String
 								.format("具有注解ResourceLanguage的类%s必须实现接口IResourceLanguage",
 										clazz.getName()));
@@ -110,7 +110,6 @@ public class Initializer extends HttpServlet {
 	private void doInitController() throws Exception {
 		// 取出符合扫描条件的包下所有的类
 		Set<Class<?>> classes = this.getBasePackageToScan();
-
 		// 初始化PageController映射表
 		PageControllerRequestMapping.getInstance().init(classes);
 		log.info("初始化PageController映射表完成(1/4)");
