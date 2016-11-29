@@ -1,5 +1,5 @@
 dbDriverClass=com.microsoft.sqlserver.jdbc.SQLServerDriver
-dbUrl=jdbc:sqlserver://10.10.76.137:1433;DatabaseName=GraduationDesign_KLT_DB
+dbUrl=jdbc:sqlserver://10.10.76.37:1433;DatabaseName=GraduationDesign_KLT_DB
 user=LqK0+f32FiY_
 password=L2PgVNFmJ0wfG/+krTfNoQ__
 minConnections=10
