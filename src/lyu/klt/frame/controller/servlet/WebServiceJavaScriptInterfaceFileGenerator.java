@@ -143,7 +143,7 @@ public class WebServiceJavaScriptInterfaceFileGenerator {
 				+ BASE_PATH;
 	
 	//	String directory = "E:/workspace/GraduationDesign_KLT_Server/WebContent"+ BASE_PATH;
-		//System.out.println("directory:"+directory);
+	//	System.out.println("directory:"+directory);
 		directory = URLDecoder.decode(directory, "UTF-8");
 		String fileName = String.format("%s.js", moduleName);
 		FileUtils.saveFile(directory, fileName, content.getBytes());

@@ -3,7 +3,8 @@
     xmlns="http://java.sun.com/xml/ns/javaee" 
     xmlns:jsp="http://java.sun.com/xml/ns/javaee/jsp" 
     xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd" 
-    id="WebApp_ID" version="3.0">
+    id="WebApp_ID" version="3.0"
+    >
   <display-name>GraduationDesign_KLT_Server</display-name>
   <listener>
     <listener-class>lyu.klt.frame.controller.listener.Log4jListener</listener-class>
@@ -31,7 +32,18 @@
   </servlet-mapping>
     <servlet>
     <servlet-name>ClientDownloadDispatcher</servlet-name>
-    <servlet-class>web.localtax.file.ClientDownloadDispatcher</servlet-class>
+    <servlet-class>web.common.module.file.ClientDownloadDispatcher</servlet-class>
+  </servlet>
+  
+    <servlet-mapping>
+    <servlet-name>UserPhotoUpdateDispatcher</servlet-name>
+    <url-pattern>/userPhotoUpdate</url-pattern>
+  </servlet-mapping>
+  
+
+    <servlet>
+    <servlet-name>UserPhotoUpdateDispatcher</servlet-name>
+    <servlet-class>web.common.module.mobile_api.UserPhotoUpdateDispatcher</servlet-class>
   </servlet>
   <servlet-mapping>
     <servlet-name>DownloadDispatcher</servlet-name>
@@ -55,6 +67,8 @@
     <url-pattern>*.svg</url-pattern>
     <url-pattern>*.otf</url-pattern>
     <url-pattern>*.apk</url-pattern>
+    <url-pattern>*.mp4</url-pattern>
+    <url-pattern>*.mp3</url-pattern>
   </servlet-mapping>
   <jsp-config>
     <taglib>

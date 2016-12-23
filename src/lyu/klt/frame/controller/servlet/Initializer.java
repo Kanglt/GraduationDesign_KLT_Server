@@ -128,6 +128,7 @@ public class Initializer extends HttpServlet {
 		// 为WebServiceController生成对应的JavaScript文件，并放在网站/js/webservice路径下
 		new WebServiceJavaScriptInterfaceFileGenerator(classes).process();
 		log.info("WebServiceController对应的JavaScript文件生成完成(4/4)");
+
 	}
 
 	private Set<Class<?>> getBasePackageToScan() {
