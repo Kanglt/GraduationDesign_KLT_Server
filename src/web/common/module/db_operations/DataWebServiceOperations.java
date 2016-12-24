@@ -36,5 +36,23 @@ public class DataWebServiceOperations {
 
 		return procedure.exec();
 	}
+	
+	public static ProcedureResult queryDietData_db_procedure(String titleName) throws Exception {
+
+		Procedure procedure = new Procedure("queryDietData");
+
+		procedure.addParameterString("titleName", titleName);
+
+		return procedure.exec();
+	}
+	
+	public static ProcedureResult getdietData_titleName_db_procedure() throws Exception {
+
+		Procedure procedure = new Procedure("readDietData_titleName");
+
+	
+
+		return procedure.exec();
+	}
 
 }

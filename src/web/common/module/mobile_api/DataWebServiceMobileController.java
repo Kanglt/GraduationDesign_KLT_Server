@@ -50,7 +50,7 @@ public class DataWebServiceMobileController  {
 
 	/**
 	 * 
-	 * @Title: login @author 康良涛 @Description: TODO(用户登入) @param @param
+	 * @Title: login @author 康良涛 @Description: TODO() @param @param
 	 * jsonDataStr @param @return @param @throws Exception @return
 	 * String @throws
 	 */
@@ -102,7 +102,49 @@ public class DataWebServiceMobileController  {
 	}
 
 	
+	@Access(handler = MobileUserAccessHandler.class)
+	@WebServiceMethod
+	public String queryDietData(@Decrypt(handler = DecrptHandler.class) String jsonDataStr) throws Exception {
 
+		JSONObject jsonData = new JSONObject(jsonDataStr);
+
+		ProcedureResult pr_titleName = DataWebServiceMobileController.getdietData_titleName_db_procedure();
+		List<DietTitleNamePo> dietTitleNamePoList = pr_titleName
+				.getListAsObject(DietTitleNamePo.class);
+		
+		JSONArray result = new JSONArray();
+		
+		for (DietTitleNamePo trainingTitleNamePo : dietTitleNamePoList) {
+
+			String titleName = trainingTitleNamePo.getTitleName();
+
+			
+			ProcedureResult pr = DataWebServiceMobileController.queryDietData_db_procedure(titleName);
+
+			JSONObject obj = new JSONObject();
+			
+			obj.put("dietDataPoList", pr.getListAsJSONArray());
+			if(pr.getListAsJSONArray().length()!=0){
+				result.put(obj);
+			}
+		}
+		
+		
+		WebServiceMobileMessage msg = new WebServiceMobileMessage();
+		
+		msg.put(Constants.LIST, result);
+		return msg.toString();
+	}
+	
+	public ProcedureResult queryDietData_db_procedure(String titleName) throws Exception {
+
+		return DataWebServiceOperations.queryDietData_db_procedure(titleName);
+	}
+	
+	public ProcedureResult getdietData_titleName_db_procedure() throws Exception {
+
+		return DataWebServiceOperations.getdietData_titleName_db_procedure();
+	}
 	
 	
 }
