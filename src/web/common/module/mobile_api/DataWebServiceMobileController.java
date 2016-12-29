@@ -282,5 +282,380 @@ public class DataWebServiceMobileController {
 
 		return UserWebServiceOperations.getMusicData_with_musicType_db_procedure(musicType);
 	}
+	
+	
+	/**
+	 * 
+	* @Title: getTotalTraining 
+	* @author 康良涛 
+	* @Description: TODO(获取全部训练) 
+	* @param @param jsonDataStr
+	* @param @return
+	* @param @throws Exception
+	* @return String
+	* @throws
+	 */
+	@Access(handler = MobileUserAccessHandler.class)
+	@WebServiceMethod
+	public String getTotalTraining(@Decrypt(handler = DecrptHandler.class) String jsonDataStr)
+			throws Exception {
 
+		JSONObject jsonData = new JSONObject(jsonDataStr);
+
+		
+
+		ProcedureResult pr = DataWebServiceMobileController.getTotalTraining_db_procedure();
+
+		WebServiceMobileMessage msg = new WebServiceMobileMessage();
+		msg.put(Constants.LIST, pr.getListAsJSONArray());
+		return msg.toString();
+	}
+
+	public ProcedureResult getTotalTraining_db_procedure()
+			throws Exception {
+
+		return UserWebServiceOperations.getTotalTraining_db_procedure();
+	}
+	
+	/**
+	 * 
+	* @Title: addTraining 
+	* @author 康良涛 
+	* @Description: TODO(添加训练) 
+	* @param @param jsonDataStr
+	* @param @return
+	* @param @throws Exception
+	* @return String
+	* @throws
+	 */
+	
+	@Access(handler = MobileUserAccessHandler.class)
+	@WebServiceMethod
+	public String addTraining(@Decrypt(handler = DecrptHandler.class) String jsonDataStr)
+			throws Exception {
+
+		JSONObject jsonData = new JSONObject(jsonDataStr);
+
+		String userId = null;
+		String category = null;
+		if (jsonData != null) {
+			userId = jsonData.getString("userId");
+			category = jsonData.getString("category");
+		}
+
+		ProcedureResult pr = DataWebServiceMobileController.addTraining_db_procedure(userId,category);
+
+		WebServiceMobileMessage msg = new WebServiceMobileMessage();
+		msg.put(Constants.RECORD, pr.getRecordAsJSONObject());
+		return msg.toString();
+	}
+
+	public ProcedureResult addTraining_db_procedure(String userId,String category)
+			throws Exception {
+
+		return UserWebServiceOperations.addTraining_db_procedure(userId,category);
+	}
+	
+	
+	
+	
+	/**
+	 * 
+	* @Title: queryUserTrainingData 
+	* @author 康良涛 
+	* @Description: TODO(查询用户已添加训练) 
+	* @param @param jsonDataStr
+	* @param @return
+	* @param @throws Exception
+	* @return String
+	* @throws
+	 */
+	@Access(handler = MobileUserAccessHandler.class)
+	@WebServiceMethod
+	public String queryUserTrainingData(@Decrypt(handler = DecrptHandler.class) String jsonDataStr) throws Exception {
+
+		JSONObject jsonData = new JSONObject(jsonDataStr);
+
+		
+		String userId = null;
+		if (jsonData != null) {
+			userId = jsonData.getString("userId");
+		}
+		
+		ProcedureResult pr_titleName = DataWebServiceMobileController.queryUserTrainingData_db_procedure(userId);
+		List<TrainingCategoryPo> trainingCategoryPoList = pr_titleName.getListAsObject(TrainingCategoryPo.class);
+
+		JSONArray result = new JSONArray();
+
+		for (TrainingCategoryPo trainingCategoryPo : trainingCategoryPoList) {
+
+			String category = trainingCategoryPo.getCategory();
+
+			ProcedureResult pr = DataWebServiceMobileController.queryTrainingData_db_procedure(category);
+
+			JSONObject obj = new JSONObject();
+
+			obj.put("trianingList", pr.getListAsJSONArray());
+			if (pr.getListAsJSONArray().length() != 0) {
+				result.put(obj);
+			}
+		}
+
+		WebServiceMobileMessage msg = new WebServiceMobileMessage();
+
+		msg.put(Constants.LIST, result);
+		return msg.toString();
+	}
+
+	public ProcedureResult queryTrainingData_db_procedure(String category) throws Exception {
+
+		return DataWebServiceOperations.getTrainingData_with_category_db_procedure(category);
+	}
+
+	public ProcedureResult queryUserTrainingData_db_procedure(String userId) throws Exception {
+
+		return DataWebServiceOperations.queryUserTrainingData_db_procedure(userId);
+	}
+	
+	/**
+	 * 
+	* @Title: deleteTraining 
+	* @author 康良涛 
+	* @Description: TODO(删除用户训练) 
+	* @param @param jsonDataStr
+	* @param @return
+	* @param @throws Exception
+	* @return String
+	* @throws
+	 */
+	@Access(handler = MobileUserAccessHandler.class)
+	@WebServiceMethod
+	public String deleteUserTraining(@Decrypt(handler = DecrptHandler.class) String jsonDataStr)
+			throws Exception {
+
+		JSONObject jsonData = new JSONObject(jsonDataStr);
+
+		String userId = null;
+		String category = null;
+		if (jsonData != null) {
+			userId = jsonData.getString("userId");
+			category = jsonData.getString("category");
+		}
+
+		ProcedureResult pr = DataWebServiceMobileController.deleteUserTraining_db_procedure(userId,category);
+
+		WebServiceMobileMessage msg = new WebServiceMobileMessage();
+		msg.put(Constants.RECORD, pr.getRecordAsJSONObject());
+		return msg.toString();
+	}
+
+	public ProcedureResult deleteUserTraining_db_procedure(String userId,String category)
+			throws Exception {
+
+		return UserWebServiceOperations.deleteUserTraining_db_procedure(userId,category);
+	}
+	
+	
+	/**
+	 * 
+	* @Title: queryUserTrainingTotalRecord 
+	* @author 康良涛 
+	* @Description: TODO(获取用户训练记录) 
+	* @param @param jsonDataStr
+	* @param @return
+	* @param @throws Exception
+	* @return String
+	* @throws
+	 */
+	@Access(handler = MobileUserAccessHandler.class)
+	@WebServiceMethod
+	public String queryUserTrainingTotalRecord(@Decrypt(handler = DecrptHandler.class) String jsonDataStr) throws Exception {
+
+		JSONObject jsonData = new JSONObject(jsonDataStr);
+
+		
+		String userId = null;
+		if (jsonData != null) {
+			userId = jsonData.getString("userId");
+		}
+		
+		ProcedureResult pr = DataWebServiceMobileController.queryUserTrainingTotalRecord_db_procedure(userId);
+
+		
+
+
+		WebServiceMobileMessage msg = new WebServiceMobileMessage();
+
+		msg.put(Constants.RECORD, pr.getRecordAsJSONObject());
+		return msg.toString();
+	}
+
+	public ProcedureResult queryUserTrainingTotalRecord_db_procedure(String userId) throws Exception {
+
+		return DataWebServiceOperations.queryUserTrainingTotalRecord_db_procedure(userId);
+	}
+
+	
+	
+	@Access(handler = MobileUserAccessHandler.class)
+	@WebServiceMethod
+	public String addUserTrainingRecord(@Decrypt(handler = DecrptHandler.class) String jsonDataStr)
+			throws Exception {
+
+		JSONObject jsonData = new JSONObject(jsonDataStr);
+
+		String userId = null;
+		String category = null;
+		String trainingDate= null;
+		String trainingCalories= null;
+		String trainingTime= null;
+		if (jsonData != null) {
+			userId = jsonData.getString("userId");
+			category = jsonData.getString("category");
+			trainingDate= jsonData.getString("trainingDate");
+			trainingCalories= jsonData.getString("trainingCalories");
+			trainingTime= jsonData.getString("trainingTime");
+		}
+
+		ProcedureResult pr = DataWebServiceMobileController.addUserTrainingRecord_db_procedure(userId,trainingDate,trainingCalories,trainingTime,category);
+
+		WebServiceMobileMessage msg = new WebServiceMobileMessage();
+		msg.put(Constants.RECORD, pr.getRecordAsJSONObject());
+		return msg.toString();
+	}
+
+	public ProcedureResult addUserTrainingRecord_db_procedure(String userId,String trainingDate,String trainingCalories,String trainingTime,String category)
+			throws Exception {
+
+		return UserWebServiceOperations.addUserTrainingRecord_db_procedure(userId,trainingDate,trainingCalories,trainingTime,category);
+	}
+	
+	
+	
+	@Access(handler = MobileUserAccessHandler.class)
+	@WebServiceMethod
+	public String queryRecommendedTraining(@Decrypt(handler = DecrptHandler.class) String jsonDataStr) throws Exception {
+
+		JSONObject jsonData = new JSONObject(jsonDataStr);
+
+		
+	
+		ProcedureResult pr_titleName = DataWebServiceMobileController.queryRecommendedTraining_db_procedure();
+		List<TrainingCategoryPo> trainingCategoryPoList = pr_titleName.getListAsObject(TrainingCategoryPo.class);
+
+		JSONArray result = new JSONArray();
+
+		for (TrainingCategoryPo trainingCategoryPo : trainingCategoryPoList) {
+
+			String category = trainingCategoryPo.getCategory();
+
+			ProcedureResult pr = DataWebServiceMobileController.queryTrainingData_db_procedure(category);
+
+			JSONObject obj = new JSONObject();
+
+			obj.put("trianingList", pr.getListAsJSONArray());
+			if (pr.getListAsJSONArray().length() != 0) {
+				result.put(obj);
+			}
+		}
+
+		WebServiceMobileMessage msg = new WebServiceMobileMessage();
+
+		msg.put(Constants.LIST, result);
+		return msg.toString();
+	}
+
+
+	public ProcedureResult queryRecommendedTraining_db_procedure() throws Exception {
+
+		return DataWebServiceOperations.queryRecommendedTraining_db_procedure();
+	}
+	
+
+	/**
+	 * 
+	* @Title: getUserBodyData 
+	* @author 康良涛 
+	* @Description: TODO(查询用户身体数据) 
+	* @param @param jsonDataStr
+	* @param @return
+	* @param @throws Exception
+	* @return String
+	* @throws
+	 */
+	@Access(handler = MobileUserAccessHandler.class)
+	@WebServiceMethod
+	public String getUserBodyData(@Decrypt(handler = DecrptHandler.class) String jsonDataStr)
+			throws Exception {
+
+		JSONObject jsonData = new JSONObject(jsonDataStr);
+
+		String userId = null;
+		String dataType = null;
+
+		if (jsonData != null) {
+			userId = jsonData.getString("userId");
+			dataType = jsonData.getString("dataType");
+		
+		}
+
+		ProcedureResult pr = DataWebServiceMobileController.getUserBodyData_db_procedure(userId,dataType);
+
+		WebServiceMobileMessage msg = new WebServiceMobileMessage();
+		msg.put(Constants.LIST, pr.getListAsJSONArray());
+		return msg.toString();
+	}
+
+	public ProcedureResult getUserBodyData_db_procedure(String userId,String dataType)
+			throws Exception {
+
+		return UserWebServiceOperations.getUserBodyData_db_procedure(userId,dataType);
+	}
+	
+	
+	/**
+	 * 
+	* @Title: addUserBodyData 
+	* @author 康良涛 
+	* @Description: TODO(添加用户身体信息记录) 
+	* @param @param jsonDataStr
+	* @param @return
+	* @param @throws Exception
+	* @return String
+	* @throws
+	 */
+	@Access(handler = MobileUserAccessHandler.class)
+	@WebServiceMethod
+	public String addUserBodyData(@Decrypt(handler = DecrptHandler.class) String jsonDataStr)
+			throws Exception {
+
+		JSONObject jsonData = new JSONObject(jsonDataStr);
+
+		String userId = null;
+		String dataType = null;
+		String data= null;
+		String height= null;
+		String weight= null;
+		String date=null;
+		if (jsonData != null) {
+			userId = jsonData.getString("userId");
+			dataType = jsonData.getString("dataType");
+			data= jsonData.getString("data");
+			height= jsonData.getString("height");
+			weight= jsonData.getString("weight");
+			date= jsonData.getString("date");
+		}
+
+		ProcedureResult pr = DataWebServiceMobileController.addUserBodyData_db_procedure(userId,dataType,data,height,weight,date);
+
+		WebServiceMobileMessage msg = new WebServiceMobileMessage();
+		msg.put(Constants.RECORD, pr.getRecordAsJSONObject());
+		return msg.toString();
+	}
+
+	public ProcedureResult addUserBodyData_db_procedure(String userId,String dataType,String data,String height,String weight,String date)
+			throws Exception {
+
+		return UserWebServiceOperations.addUserBodyData_db_procedure(userId,dataType,data,height,weight,date);
+	}
 }

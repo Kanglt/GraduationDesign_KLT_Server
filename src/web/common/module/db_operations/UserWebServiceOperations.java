@@ -56,7 +56,7 @@ public class UserWebServiceOperations {
 	}
 
 	public static ProcedureResult updateInformation_db_procedure(String userId, String userName, String userPassword,
-			String userBirthday, String userPhoneNumble, String userSex, String userEmail,String userPhoto) throws Exception {
+			String userBirthday,String userAge, String userPhoneNumble, String userSex, String userEmail,String userPhoto) throws Exception {
 
 		Procedure procedure = new Procedure("updateUserInformation");
 
@@ -64,6 +64,7 @@ public class UserWebServiceOperations {
 		procedure.addParameterString("userName", userName);
 		procedure.addParameterString("userPassword", userPassword);
 		procedure.addParameterString("userBirthday", userBirthday);
+		procedure.addParameterString("userAge", userAge);
 		procedure.addParameterString("userPhoneNumble", userPhoneNumble);
 		procedure.addParameterString("userSex", userSex);
 		procedure.addParameterString("userEmail", userEmail);
@@ -89,6 +90,72 @@ public class UserWebServiceOperations {
 
 		procedure.addParameterString("musicType", musicType);
 
+
+		return procedure.exec();
+	}
+	
+	public static ProcedureResult getTotalTraining_db_procedure() throws Exception {
+
+		Procedure procedure = new Procedure("queryTotalTraining");
+
+
+
+		return procedure.exec();
+	}
+	
+	
+	public static ProcedureResult addTraining_db_procedure(String userId,String category) throws Exception {
+
+		Procedure procedure = new Procedure("addTraining");
+
+		procedure.addParameterString("userId", userId);
+		procedure.addParameterString("category", category);
+
+		return procedure.exec();
+	}
+	public static ProcedureResult deleteUserTraining_db_procedure(String userId,String category) throws Exception {
+
+		Procedure procedure = new Procedure("deleteUserTraining");
+
+		procedure.addParameterString("userId", userId);
+		procedure.addParameterString("category", category);
+
+		return procedure.exec();
+	}
+	
+	public static ProcedureResult addUserTrainingRecord_db_procedure(String userId,String trainingDate,String trainingCalories,String trainingTime,String category) throws Exception {
+
+		Procedure procedure = new Procedure("addUserTrainingRecord");
+
+		procedure.addParameterString("userId", userId);
+		procedure.addParameterString("trainingDate", trainingDate);
+		procedure.addParameterInteger("trainingCalories", Integer.parseInt(trainingCalories));
+		procedure.addParameterInteger("trainingTime", Integer.parseInt(trainingTime));
+		procedure.addParameterString("category", category);
+
+		return procedure.exec();
+	}
+	
+	public static ProcedureResult getUserBodyData_db_procedure(String userId,String dataType) throws Exception {
+
+		Procedure procedure = new Procedure("queryUserBodyData");
+
+		procedure.addParameterString("userId", userId);
+		procedure.addParameterString("dataType", dataType);
+
+		return procedure.exec();
+	}
+	
+	public static ProcedureResult addUserBodyData_db_procedure(String userId,String dataType,String data,String height,String weight,String date) throws Exception {
+
+		Procedure procedure = new Procedure("addUserBodyData");
+
+		procedure.addParameterString("userId", userId);
+		procedure.addParameterString("dataType", dataType);
+		procedure.addParameterString("data", data);
+		procedure.addParameterString("height", height);
+		procedure.addParameterString("weight", weight);
+		procedure.addParameterString("date", date);
 
 		return procedure.exec();
 	}

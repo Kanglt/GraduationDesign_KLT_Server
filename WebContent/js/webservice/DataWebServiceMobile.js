@@ -38,3 +38,67 @@ DataWebServiceMobile.getMusicData_with_musicType=function(jsonDataStr,successful
 	var params = {jsonDataStr:jsonDataStr};
 	WebService.service("DataWebServiceMobile.service?getMusicData_with_musicType",params,successfulCallback,errorCallback);
 };
+
+DataWebServiceMobile.getTotalTraining=function(jsonDataStr,successfulCallback,errorCallback){
+	if(arguments.length!=3){
+		alert("调用DataWebServiceMobile.getTotalTraining方法时提供的参数个数不正确，该方法需要下列参数jsonDataStr,successCallback,errorCallback");return;}
+	var params = {jsonDataStr:jsonDataStr};
+	WebService.service("DataWebServiceMobile.service?getTotalTraining",params,successfulCallback,errorCallback);
+};
+
+
+DataWebServiceMobile.getAddTraining=function(jsonDataStr,successfulCallback,errorCallback){
+	if(arguments.length!=3){
+		alert("调用DataWebServiceMobile.addTraining方法时提供的参数个数不正确，该方法需要下列参数jsonDataStr,successCallback,errorCallback");return;}
+	var params = {jsonDataStr:jsonDataStr};
+	WebService.service("DataWebServiceMobile.service?addTraining",params,successfulCallback,errorCallback);
+};
+
+
+
+DataWebServiceMobile.queryUserTrainingData=function(jsonDataStr,successfulCallback,errorCallback){
+	if(arguments.length!=3){
+		alert("调用DataWebServiceMobile.queryUserTrainingData方法时提供的参数个数不正确，该方法需要下列参数jsonDataStr,successCallback,errorCallback");return;}
+	var params = {jsonDataStr:jsonDataStr};
+	WebService.service("DataWebServiceMobile.service?queryUserTrainingData",params,successfulCallback,errorCallback);
+};
+
+DataWebServiceMobile.deleteUserTraining=function(jsonDataStr,successfulCallback,errorCallback){
+	if(arguments.length!=3){
+		alert("调用DataWebServiceMobile.deleteUserTraining方法时提供的参数个数不正确，该方法需要下列参数jsonDataStr,successCallback,errorCallback");return;}
+	var params = {jsonDataStr:jsonDataStr};
+	WebService.service("DataWebServiceMobile.service?deleteUserTraining",params,successfulCallback,errorCallback);
+};
+
+DataWebServiceMobile.queryUserTrainingTotalRecord=function(jsonDataStr,successfulCallback,errorCallback){
+	if(arguments.length!=3){
+		alert("调用DataWebServiceMobile.queryUserTrainingTotalRecord方法时提供的参数个数不正确，该方法需要下列参数jsonDataStr,successCallback,errorCallback");return;}
+	var params = {jsonDataStr:jsonDataStr};
+	WebService.service("DataWebServiceMobile.service?queryUserTrainingTotalRecord",params,successfulCallback,errorCallback);
+};
+
+DataWebServiceMobile.addUserTrainingRecord=function(jsonDataStr,successfulCallback,errorCallback){
+	if(arguments.length!=3){
+		alert("调用DataWebServiceMobile.addUserTrainingRecord方法时提供的参数个数不正确，该方法需要下列参数jsonDataStr,successCallback,errorCallback");return;}
+	var params = {jsonDataStr:jsonDataStr};
+	WebService.service("DataWebServiceMobile.service?addUserTrainingRecord",params,successfulCallback,errorCallback);
+};
+DataWebServiceMobile.queryRecommendedTraining=function(jsonDataStr,successfulCallback,errorCallback){
+	if(arguments.length!=3){
+		alert("调用DataWebServiceMobile.queryRecommendedTraining方法时提供的参数个数不正确，该方法需要下列参数jsonDataStr,successCallback,errorCallback");return;}
+	var params = {jsonDataStr:jsonDataStr};
+	WebService.service("DataWebServiceMobile.service?queryRecommendedTraining",params,successfulCallback,errorCallback);
+};
+DataWebServiceMobile.getUserBodyData=function(jsonDataStr,successfulCallback,errorCallback){
+	if(arguments.length!=3){
+		alert("调用DataWebServiceMobile.getUserBodyData方法时提供的参数个数不正确，该方法需要下列参数jsonDataStr,successCallback,errorCallback");return;}
+	var params = {jsonDataStr:jsonDataStr};
+	WebService.service("DataWebServiceMobile.service?getUserBodyData",params,successfulCallback,errorCallback);
+};
+
+DataWebServiceMobile.addUserBodyData=function(jsonDataStr,successfulCallback,errorCallback){
+	if(arguments.length!=3){
+		alert("调用DataWebServiceMobile.addUserBodyData方法时提供的参数个数不正确，该方法需要下列参数jsonDataStr,successCallback,errorCallback");return;}
+	var params = {jsonDataStr:jsonDataStr};
+	WebService.service("DataWebServiceMobile.service?addUserBodyData",params,successfulCallback,errorCallback);
+};

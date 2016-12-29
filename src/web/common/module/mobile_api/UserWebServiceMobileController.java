@@ -162,6 +162,7 @@ public class UserWebServiceMobileController  {
 		String userName = null;
 		String userPassword = null;
 		String userBirthday = null;
+		String userAge = null;
 		String userPhoneNumble = null;
 		String userSex = null;
 		String userEmail = null;
@@ -172,6 +173,7 @@ public class UserWebServiceMobileController  {
 			userName = jsonData.getString("userName");
 			userPassword = jsonData.getString("userPassword");
 			userBirthday = jsonData.getString("userBirthday");
+			userAge= jsonData.getString("userAge");
 			userPhoneNumble = jsonData.getString("userPhoneNumble");
 			userSex = jsonData.getString("userSex");
 			userEmail = jsonData.getString("userEmail");
@@ -182,7 +184,7 @@ public class UserWebServiceMobileController  {
 		String photoURL = path + "/image/userphoto/"+photo;
 
 		ProcedureResult pr = UserWebServiceMobileController.updateUserInformation_db_procedure(userId, userName,
-				userPassword, userBirthday, userPhoneNumble, userSex, userEmail, photoURL);
+				userPassword, userBirthday,userAge, userPhoneNumble, userSex, userEmail, photoURL);
 
 		WebServiceMobileMessage msg = new WebServiceMobileMessage();
 		msg.put(Constants.RECORD, pr.getRecordAsJSONObject());
@@ -190,10 +192,10 @@ public class UserWebServiceMobileController  {
 	}
 
 	public ProcedureResult updateUserInformation_db_procedure(String userId, String userName, String userPassword,
-			String userBirthday, String userPhoneNumble, String userSex, String userEmail, String userPhoto)
+			String userBirthday, String userAge, String userPhoneNumble, String userSex, String userEmail, String userPhoto)
 			throws Exception {
 
-		return UserWebServiceOperations.updateInformation_db_procedure(userId, userName, userPassword, userBirthday,
+		return UserWebServiceOperations.updateInformation_db_procedure(userId, userName, userPassword, userBirthday,userAge,
 				userPhoneNumble, userSex, userEmail, userPhoto);
 	}
 

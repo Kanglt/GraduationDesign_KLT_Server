@@ -54,5 +54,36 @@ public class DataWebServiceOperations {
 
 		return procedure.exec();
 	}
+	
+	public static ProcedureResult getTrainingData_with_category_db_procedure(String category) throws Exception {
 
+		Procedure procedure = new Procedure("queryTrainingData_category");
+
+		procedure.addParameterString("category", category);
+
+		return procedure.exec();
+	}
+	
+	public static ProcedureResult queryUserTrainingData_db_procedure(String userId) throws Exception {
+
+		Procedure procedure = new Procedure("queryUserTraining");
+		procedure.addParameterString("userId", userId);
+
+		return procedure.exec();
+	}
+	
+	public static ProcedureResult queryUserTrainingTotalRecord_db_procedure(String userId) throws Exception {
+
+		Procedure procedure = new Procedure("queryUserTraingingTotalRecord");
+		procedure.addParameterString("userId", userId);
+
+		return procedure.exec();
+	}
+	
+	public static ProcedureResult queryRecommendedTraining_db_procedure() throws Exception {
+
+		Procedure procedure = new Procedure("queryRecommendedTraining");
+
+		return procedure.exec();
+	}
 }
