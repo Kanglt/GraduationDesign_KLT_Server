@@ -60,7 +60,17 @@ public class DataWebServiceOperations {
 		Procedure procedure = new Procedure("queryTrainingData_category");
 
 		procedure.addParameterString("category", category);
+		
+		return procedure.exec();
+	}
+	
+	public static ProcedureResult queryTrainingNum_db_procedure(String category,String userId) throws Exception {
 
+		Procedure procedure = new Procedure("queryTrainingDataTrainingNum");
+
+		procedure.addParameterString("category", category);
+		procedure.addParameterString("userId", userId);
+		
 		return procedure.exec();
 	}
 	

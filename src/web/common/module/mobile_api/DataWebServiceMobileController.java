@@ -19,6 +19,8 @@ import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import com.google.gson.JsonArray;
+
 import lyu.klt.frame.controller.annotation.Access;
 import lyu.klt.frame.controller.annotation.WebServiceController;
 import lyu.klt.frame.controller.annotation.WebServiceMethod;
@@ -393,9 +395,16 @@ public class DataWebServiceMobileController {
 
 			ProcedureResult pr = DataWebServiceMobileController.queryTrainingData_db_procedure(category);
 
+			ProcedureResult trainingNum_pr = DataWebServiceMobileController.queryTrainingNum_db_procedure(category,userId);
+
 			JSONObject obj = new JSONObject();
 
-			obj.put("trianingList", pr.getListAsJSONArray());
+			JSONObject obj2 = new JSONObject();
+			obj2.put("trainingNum", trainingNum_pr.getRecordAsJSONObject().get("trainingNum"));
+			
+			JSONArray jsa= pr.getListAsJSONArray();
+			jsa.put(obj2);
+			obj.put("trianingList",jsa);
 			if (pr.getListAsJSONArray().length() != 0) {
 				result.put(obj);
 			}
@@ -406,10 +415,17 @@ public class DataWebServiceMobileController {
 		msg.put(Constants.LIST, result);
 		return msg.toString();
 	}
+	
+	
 
 	public ProcedureResult queryTrainingData_db_procedure(String category) throws Exception {
 
 		return DataWebServiceOperations.getTrainingData_with_category_db_procedure(category);
+	}
+	
+	public ProcedureResult queryTrainingNum_db_procedure(String category,String userId) throws Exception {
+
+		return DataWebServiceOperations.queryTrainingNum_db_procedure(category,userId);
 	}
 
 	public ProcedureResult queryUserTrainingData_db_procedure(String userId) throws Exception {
