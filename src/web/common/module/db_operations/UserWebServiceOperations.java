@@ -5,6 +5,7 @@ package web.common.module.db_operations;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.sql.Timestamp;
 
 import lyu.klt.frame.database.ConnectionAgent;
 import lyu.klt.frame.database.core.Procedure;
@@ -128,11 +129,10 @@ public class UserWebServiceOperations {
 		Procedure procedure = new Procedure("addUserTrainingRecord");
 
 		procedure.addParameterString("userId", userId);
-		procedure.addParameterString("trainingDate", trainingDate);
 		procedure.addParameterInteger("trainingCalories", Integer.parseInt(trainingCalories));
 		procedure.addParameterInteger("trainingTime", Integer.parseInt(trainingTime));
 		procedure.addParameterString("category", category);
-
+		procedure.addParameterString("trainingDate", trainingDate);
 		return procedure.exec();
 	}
 	
@@ -156,6 +156,25 @@ public class UserWebServiceOperations {
 		procedure.addParameterString("height", height);
 		procedure.addParameterString("weight", weight);
 		procedure.addParameterString("date", date);
+		return procedure.exec();
+	}
+	
+	public static ProcedureResult addUserDynamic_db_procedure(String userId,String dynamicDate,String dynamicText,String dynamicImage) throws Exception {
+
+		Procedure procedure = new Procedure("addUserDynamic");
+
+		procedure.addParameterString("userId", userId);
+		procedure.addParameterString("dynamicDate", dynamicDate);
+		procedure.addParameterString("dynamicText", dynamicText);
+		procedure.addParameterString("dynamicImage", dynamicImage);
+		return procedure.exec();
+	}
+	
+	public static ProcedureResult queryUserPersonalDynamic_db_procedure(String userId) throws Exception {
+
+		Procedure procedure = new Procedure("queryUserPersonalDynamic");
+
+		procedure.addParameterString("userId", userId);
 
 		return procedure.exec();
 	}

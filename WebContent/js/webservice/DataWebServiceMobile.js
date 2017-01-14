@@ -102,3 +102,18 @@ DataWebServiceMobile.addUserBodyData=function(jsonDataStr,successfulCallback,err
 	var params = {jsonDataStr:jsonDataStr};
 	WebService.service("DataWebServiceMobile.service?addUserBodyData",params,successfulCallback,errorCallback);
 };
+
+
+DataWebServiceMobile.addUserDynamic=function(jsonDataStr,successfulCallback,errorCallback){
+	if(arguments.length!=3){
+		alert("调用DataWebServiceMobile.addUserDynamic方法时提供的参数个数不正确，该方法需要下列参数jsonDataStr,successCallback,errorCallback");return;}
+	var params = {jsonDataStr:jsonDataStr};
+	WebService.service("DataWebServiceMobile.service?addUserDynamic",params,successfulCallback,errorCallback);
+};
+
+DataWebServiceMobile.queryUserPersonalDynamic=function(jsonDataStr,successfulCallback,errorCallback){
+	if(arguments.length!=3){
+		alert("调用DataWebServiceMobile.queryUserPersonalDynamic方法时提供的参数个数不正确，该方法需要下列参数jsonDataStr,successCallback,errorCallback");return;}
+	var params = {jsonDataStr:jsonDataStr};
+	WebService.service("DataWebServiceMobile.service?queryUserPersonalDynamic",params,successfulCallback,errorCallback);
+};

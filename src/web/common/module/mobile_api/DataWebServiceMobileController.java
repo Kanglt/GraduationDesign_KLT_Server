@@ -674,4 +674,92 @@ public class DataWebServiceMobileController {
 
 		return UserWebServiceOperations.addUserBodyData_db_procedure(userId,dataType,data,height,weight,date);
 	}
+	
+	
+	/**
+	 * 
+	* @Title: addUserDynamic 
+	* @author 康良涛 
+	* @Description: TODO(用户发布动态) 
+	* @param @param jsonDataStr
+	* @param @return
+	* @param @throws Exception
+	* @return String
+	* @throws
+	 */
+	@Access(handler = MobileUserAccessHandler.class)
+	@WebServiceMethod
+	public String addUserDynamic(@Decrypt(handler = DecrptHandler.class) String jsonDataStr)
+			throws Exception {
+
+		JSONObject jsonData = new JSONObject(jsonDataStr);
+
+		String userId = null;
+		String dynamicDate = null;
+		String dynamicText= null;
+		String dynamicImage= null;
+
+		if (jsonData != null) {
+			userId = jsonData.getString("userId");
+			dynamicDate = jsonData.getString("dynamicDate");
+			dynamicText= jsonData.getString("dynamicText");
+			dynamicImage= jsonData.getString("dynamicImage");
+			
+		}
+		String path = URLDecoder.decode(Initializer.class.getResource("/").getPath(), "UTF-8");
+		String photoURL = path + "/image/userphoto/"+dynamicImage;
+		
+		ProcedureResult pr = DataWebServiceMobileController.addUserDynamic_db_procedure(userId,dynamicDate,dynamicText,photoURL);
+
+		WebServiceMobileMessage msg = new WebServiceMobileMessage();
+		msg.put(Constants.RECORD, pr.getRecordAsJSONObject());
+		return msg.toString();
+	}
+
+	public ProcedureResult addUserDynamic_db_procedure(String userId,String dynamicDate,String dynamicText,String dynamicImage)
+			throws Exception {
+
+		return UserWebServiceOperations.addUserDynamic_db_procedure(userId,dynamicDate,dynamicText,dynamicImage);
+	}
+	
+	
+	/**
+	 * 
+	* @Title: queryUserPersonalDynamic 
+	* @author 康良涛 
+	* @Description: TODO(查询用户个人动态) 
+	* @param @param jsonDataStr
+	* @param @return
+	* @param @throws Exception
+	* @return String
+	* @throws
+	 */
+	@Access(handler = MobileUserAccessHandler.class)
+	@WebServiceMethod
+	public String queryUserPersonalDynamic(@Decrypt(handler = DecrptHandler.class) String jsonDataStr)
+			throws Exception {
+
+		JSONObject jsonData = new JSONObject(jsonDataStr);
+
+		String userId = null;
+
+		if (jsonData != null) {
+			userId = jsonData.getString("userId");
+			
+			
+		}
+	
+		
+		ProcedureResult pr = DataWebServiceMobileController.queryUserPersonalDynamic_db_procedure(userId);
+
+		WebServiceMobileMessage msg = new WebServiceMobileMessage();
+		msg.put(Constants.LIST, pr.getListAsJSONArray());
+		return msg.toString();
+	}
+
+	public ProcedureResult queryUserPersonalDynamic_db_procedure(String userId)
+			throws Exception {
+
+		return UserWebServiceOperations.queryUserPersonalDynamic_db_procedure(userId);
+	}
 }
