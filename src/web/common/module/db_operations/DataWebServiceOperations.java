@@ -96,4 +96,13 @@ public class DataWebServiceOperations {
 
 		return procedure.exec();
 	}
+	
+	public static ProcedureResult queryUserFocusDynamic_db_procedure(String userId) throws Exception {
+
+		Procedure procedure = new Procedure("queryUserFocusDynamic");
+
+		procedure.addParameterString("userId", userId);
+
+		return procedure.exec();
+	}
 }

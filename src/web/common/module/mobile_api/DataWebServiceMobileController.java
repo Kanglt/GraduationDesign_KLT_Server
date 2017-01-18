@@ -706,10 +706,16 @@ public class DataWebServiceMobileController {
 			dynamicImage= jsonData.getString("dynamicImage");
 			
 		}
-		String path = URLDecoder.decode(Initializer.class.getResource("/").getPath(), "UTF-8");
-		String photoURL = path + "/image/userphoto/"+dynamicImage;
+		ProcedureResult pr;
+		if(!dynamicImage.equals("isEmpty")){
+			String path = URLDecoder.decode(Initializer.class.getResource("/").getPath(), "UTF-8");
+			String photoURL = path + "/image/userphoto/"+dynamicImage;
+			pr = DataWebServiceMobileController.addUserDynamic_db_procedure(userId,dynamicDate,dynamicText,photoURL);
+		}else{
+			pr = DataWebServiceMobileController.addUserDynamic_db_procedure(userId,dynamicDate,dynamicText,dynamicImage);
+		}
 		
-		ProcedureResult pr = DataWebServiceMobileController.addUserDynamic_db_procedure(userId,dynamicDate,dynamicText,photoURL);
+		
 
 		WebServiceMobileMessage msg = new WebServiceMobileMessage();
 		msg.put(Constants.RECORD, pr.getRecordAsJSONObject());
@@ -761,5 +767,28 @@ public class DataWebServiceMobileController {
 			throws Exception {
 
 		return UserWebServiceOperations.queryUserPersonalDynamic_db_procedure(userId);
+	}
+	
+	
+	@Access(handler = MobileUserAccessHandler.class)
+	@WebServiceMethod
+	public String queryUserFocusDynamic(@Decrypt(handler = DecrptHandler.class) String jsonDataStr) throws Exception {
+
+		JSONObject jsonData = new JSONObject(jsonDataStr);
+		String userId=null;
+		if (jsonData != null) {
+			userId = jsonData.getString("userId");	
+		}
+
+		ProcedureResult pr = DataWebServiceMobileController.queryUserFocusDynamic_db_procedure(userId);
+		
+		WebServiceMobileMessage msg = new WebServiceMobileMessage();
+		msg.put(Constants.LIST, pr.getListAsJSONArray());
+		return msg.toString();
+	}
+
+	public ProcedureResult queryUserFocusDynamic_db_procedure(String userId) throws Exception {
+
+		return DataWebServiceOperations.queryUserFocusDynamic_db_procedure(userId);
 	}
 }
