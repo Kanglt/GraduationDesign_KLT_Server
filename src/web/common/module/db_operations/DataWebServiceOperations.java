@@ -184,4 +184,14 @@ public class DataWebServiceOperations {
 
 		return procedure.exec();
 	}
+	
+	public static ProcedureResult queryPersonalInfo_db_procedure(String userId,String focusId) throws Exception {
+
+		Procedure procedure = new Procedure("queryPersonalInfo");
+
+		procedure.addParameterString("userId", userId);
+		procedure.addParameterString("focusId", focusId);
+
+		return procedure.exec();
+	}
 }

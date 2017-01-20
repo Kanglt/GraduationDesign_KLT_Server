@@ -382,4 +382,39 @@ public class UserWebServiceMobileController  {
 
 		return DataWebServiceOperations.deleteUserFocus_db_procedure(userId,focusId);
 	}
+	
+	/**
+	 * 
+	* @Title: queryPersonalInfo 
+	* @author 康良涛 
+	* @Description: TODO(查询单个儿用户对于已登入用户的信息) 
+	* @param @param jsonDataStr
+	* @param @return
+	* @param @throws Exception
+	* @return String
+	* @throws
+	 */
+	@Access(handler = MobileUserAccessHandler.class)
+	@WebServiceMethod
+	public String queryPersonalInfo(@Decrypt(handler = DecrptHandler.class) String jsonDataStr) throws Exception {
+
+		JSONObject jsonData = new JSONObject(jsonDataStr);
+		String userId=null;
+		String focusId=null;
+		if (jsonData != null) {
+			userId = jsonData.getString("userId");		
+			focusId = jsonData.getString("focusId");	
+		}
+
+		ProcedureResult pr = UserWebServiceMobileController.queryPersonalInfo_db_procedure(userId,focusId);
+		
+		
+		WebServiceMobileMessage msg = new WebServiceMobileMessage();
+		msg.put(Constants.RECORD, pr.getRecordAsJSONObject());
+		return msg.toString();
+	}
+	public ProcedureResult queryPersonalInfo_db_procedure(String userId,String focusId) throws Exception {
+
+		return DataWebServiceOperations.queryPersonalInfo_db_procedure(userId,focusId);
+	}
 }
