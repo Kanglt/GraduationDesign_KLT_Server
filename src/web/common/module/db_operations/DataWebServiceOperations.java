@@ -105,4 +105,83 @@ public class DataWebServiceOperations {
 
 		return procedure.exec();
 	}
+	public static ProcedureResult queryHotDynamic_db_procedure() throws Exception {
+
+		Procedure procedure = new Procedure("queryHotDynamic");
+
+
+		return procedure.exec();
+	}
+	
+	public static ProcedureResult addUserFocus_db_procedure(String userId,String focusId) throws Exception {
+
+		Procedure procedure = new Procedure("addUserFocus");
+
+		procedure.addParameterString("userId", userId);
+		procedure.addParameterString("focusId", focusId);
+
+		return procedure.exec();
+	}
+	
+	public static ProcedureResult queryUserFocusNum_db_procedure(String userId) throws Exception {
+
+		Procedure procedure = new Procedure("queryUserFocusNum");
+
+		procedure.addParameterString("userId", userId);
+
+		return procedure.exec();
+	}
+	public static ProcedureResult queryUserFansNum_db_procedure(String userId) throws Exception {
+
+		Procedure procedure = new Procedure("queryUserFansNum");
+
+		procedure.addParameterString("userId", userId);
+
+		return procedure.exec();
+	}
+	public static ProcedureResult queryUserDynamicNum_db_procedure(String userId) throws Exception {
+
+		Procedure procedure = new Procedure("queryUserDynamicNum");
+
+		procedure.addParameterString("userId", userId);
+
+		return procedure.exec();
+	}
+	
+	public static ProcedureResult queryUserFocusInfo_db_procedure(String userId) throws Exception {
+
+		Procedure procedure = new Procedure("queryUserFocusInfo");
+
+		procedure.addParameterString("userId", userId);
+
+		return procedure.exec();
+	}
+	
+	public static ProcedureResult queryUserFansInfo_db_procedure(String userId) throws Exception {
+
+		Procedure procedure = new Procedure("queryUserFansInfo");
+
+		procedure.addParameterString("userId", userId);
+
+		return procedure.exec();
+	}
+	
+	public static ProcedureResult queryIsFocus_db_procedure(String userId,String focusId) throws Exception {
+
+		Procedure procedure = new Procedure("queryIsFocus");
+
+		procedure.addParameterString("userId", userId);
+		procedure.addParameterString("focusId", focusId);
+
+		return procedure.exec();
+	}
+	public static ProcedureResult deleteUserFocus_db_procedure(String userId,String focusId) throws Exception {
+
+		Procedure procedure = new Procedure("deleteUserFocus");
+
+		procedure.addParameterString("userId", userId);
+		procedure.addParameterString("focusId", focusId);
+
+		return procedure.exec();
+	}
 }

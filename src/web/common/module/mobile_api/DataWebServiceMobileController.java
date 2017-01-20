@@ -769,7 +769,17 @@ public class DataWebServiceMobileController {
 		return UserWebServiceOperations.queryUserPersonalDynamic_db_procedure(userId);
 	}
 	
-	
+	/**
+	 * 
+	* @Title: queryUserFocusDynamic 
+	* @author 康良涛 
+	* @Description: TODO(查询用户关注人动态列表) 
+	* @param @param jsonDataStr
+	* @param @return
+	* @param @throws Exception
+	* @return String
+	* @throws
+	 */
 	@Access(handler = MobileUserAccessHandler.class)
 	@WebServiceMethod
 	public String queryUserFocusDynamic(@Decrypt(handler = DecrptHandler.class) String jsonDataStr) throws Exception {
@@ -791,4 +801,72 @@ public class DataWebServiceMobileController {
 
 		return DataWebServiceOperations.queryUserFocusDynamic_db_procedure(userId);
 	}
+	
+	/**
+	 * 
+	* @Title: addUserFocus 
+	* @author 康良涛 
+	* @Description: TODO(添加关注) 
+	* @param @param jsonDataStr
+	* @param @return
+	* @param @throws Exception
+	* @return String
+	* @throws
+	 */
+	@Access(handler = MobileUserAccessHandler.class)
+	@WebServiceMethod
+	public String addUserFocus(@Decrypt(handler = DecrptHandler.class) String jsonDataStr) throws Exception {
+
+		JSONObject jsonData = new JSONObject(jsonDataStr);
+		String userId=null;
+		String focusId=null;
+		if (jsonData != null) {
+			userId = jsonData.getString("userId");	
+			focusId = jsonData.getString("focusId");	
+		}
+
+		ProcedureResult pr = DataWebServiceMobileController.addUserFocus_db_procedure(userId,focusId);
+		
+		WebServiceMobileMessage msg = new WebServiceMobileMessage();
+		msg.put(Constants.RECORD, pr.getRecordAsJSONObject());
+		return msg.toString();
+	}
+
+	public ProcedureResult addUserFocus_db_procedure(String userId,String focusId) throws Exception {
+
+		return DataWebServiceOperations.addUserFocus_db_procedure(userId,focusId);
+	}
+	/**
+	 * 
+	* @Title: queryUserFocusDynamic 
+	* @author 康良涛 
+	* @Description: TODO(查询热门动态) 
+	* @param @param jsonDataStr
+	* @param @return
+	* @param @throws Exception
+	* @return String
+	* @throws
+	 */
+	@Access(handler = MobileUserAccessHandler.class)
+	@WebServiceMethod
+	public String queryHotDynamic(@Decrypt(handler = DecrptHandler.class) String jsonDataStr) throws Exception {
+
+		JSONObject jsonData = new JSONObject(jsonDataStr);
+//		String userId=null;
+//		if (jsonData != null) {
+//			userId = jsonData.getString("userId");	
+//		}
+
+		ProcedureResult pr = DataWebServiceMobileController.queryHotDynamic_db_procedure();
+		
+		WebServiceMobileMessage msg = new WebServiceMobileMessage();
+		msg.put(Constants.LIST, pr.getListAsJSONArray());
+		return msg.toString();
+	}
+
+	public ProcedureResult queryHotDynamic_db_procedure() throws Exception {
+
+		return DataWebServiceOperations.queryHotDynamic_db_procedure();
+	}
+	
 }
