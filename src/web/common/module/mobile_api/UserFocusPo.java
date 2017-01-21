@@ -11,7 +11,27 @@ package web.common.module.mobile_api;
 */
 public class UserFocusPo {
 
+	private int id;
+	private String userId;
 	private String focusId;
+
+	
+	
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public String getUserId() {
+		return userId;
+	}
+
+	public void setUserId(String userId) {
+		this.userId = userId;
+	}
 
 	public String getFocusId() {
 		return focusId;

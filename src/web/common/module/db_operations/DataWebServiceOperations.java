@@ -194,4 +194,14 @@ public class DataWebServiceOperations {
 
 		return procedure.exec();
 	}
+	
+	public static ProcedureResult queryPersonalDynamic_db_procedure(String userId,int dynamicId) throws Exception {
+
+		Procedure procedure = new Procedure("queryPersonalDynamic");
+
+		procedure.addParameterString("userId", userId);
+		procedure.addParameterInteger("dynamicId", dynamicId);
+
+		return procedure.exec();
+	}
 }

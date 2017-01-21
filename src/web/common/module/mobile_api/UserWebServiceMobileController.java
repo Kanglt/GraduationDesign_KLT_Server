@@ -15,6 +15,7 @@ import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.FileUploadException;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 import com.google.gson.JsonObject;
@@ -269,11 +270,28 @@ public class UserWebServiceMobileController  {
 			userId = jsonData.getString("userId");		
 		}
 
-		ProcedureResult pr = UserWebServiceMobileController.queryUserFocusInfo_db_procedure(userId);
+		ProcedureResult pr_userFocusInfo = UserWebServiceMobileController.queryUserFocusInfo_db_procedure(userId);
 		
+		List<UserFocusPo> userFocusPoList = pr_userFocusInfo.getListAsObject(UserFocusPo.class);
+
+		JSONArray result = new JSONArray();
+
+		for (UserFocusPo userFocusPo : userFocusPoList) {
+
+			String focusId = userFocusPo.getUserId();
+
+			ProcedureResult pr = UserWebServiceMobileController.queryPersonalInfo_db_procedure(userId, focusId);
+
+			JSONObject obj = new JSONObject();
+
+			obj.put("userPo", pr.getRecordAsJSONObject());
+			if (pr.getListAsJSONArray().length() != 0) {
+				result.put(obj);
+			}
+		}
 		
 		WebServiceMobileMessage msg = new WebServiceMobileMessage();
-		msg.put(Constants.LIST, pr.getListAsJSONArray());
+		msg.put(Constants.LIST, result);
 		return msg.toString();
 	}
 
@@ -301,12 +319,28 @@ public class UserWebServiceMobileController  {
 		if (jsonData != null) {
 			userId = jsonData.getString("userId");		
 		}
-
-		ProcedureResult pr = UserWebServiceMobileController.queryUserFansInfo_db_procedure(userId);
+		ProcedureResult pr_userFocusInfo = UserWebServiceMobileController.queryUserFansInfo_db_procedure(userId);
 		
+		List<UserFocusPo> userFocusPoList = pr_userFocusInfo.getListAsObject(UserFocusPo.class);
+
+		JSONArray result = new JSONArray();
+
+		for (UserFocusPo userFocusPo : userFocusPoList) {
+
+			String focusId = userFocusPo.getUserId();
+
+			ProcedureResult pr = UserWebServiceMobileController.queryPersonalInfo_db_procedure(userId, focusId);
+
+			JSONObject obj = new JSONObject();
+
+			obj.put("userPo", pr.getRecordAsJSONObject());
+			if (pr.getListAsJSONArray().length() != 0) {
+				result.put(obj);
+			}
+		}
 		
 		WebServiceMobileMessage msg = new WebServiceMobileMessage();
-		msg.put(Constants.LIST, pr.getListAsJSONArray());
+		msg.put(Constants.LIST, result);
 		return msg.toString();
 	}
 	public ProcedureResult queryUserFansInfo_db_procedure(String userId) throws Exception {
