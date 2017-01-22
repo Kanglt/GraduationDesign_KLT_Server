@@ -62,3 +62,10 @@ UserWebServiceMobile.queryPersonalInfo=function(jsonDataStr,successfulCallback,e
 	var params = {jsonDataStr:jsonDataStr};
 	WebService.service("UserWebServiceMobile.service?queryPersonalInfo",params,successfulCallback,errorCallback);
 };
+
+UserWebServiceMobile.updateUserDynamicThumbUpNum=function(jsonDataStr,successfulCallback,errorCallback){
+	if(arguments.length!=3){
+		alert("调用UserWebServiceMobile.updateUserDynamicThumbUpNum方法时提供的参数个数不正确，该方法需要下列参数jsonDataStr,successCallback,errorCallback");return;}
+	var params = {jsonDataStr:jsonDataStr};
+	WebService.service("UserWebServiceMobile.service?updateUserDynamicThumbUpNum",params,successfulCallback,errorCallback);
+};

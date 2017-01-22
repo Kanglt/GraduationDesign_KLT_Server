@@ -204,4 +204,51 @@ public class DataWebServiceOperations {
 
 		return procedure.exec();
 	}
+	
+	public static ProcedureResult updateUserDynamicThumbUpNum_db_procedure(String userId,int dynamicId,String type) throws Exception {
+
+		Procedure procedure = new Procedure("updateUserDynamicThumbUpNum");
+		
+		int isThumbUp=0;
+		
+		procedure.addParameterString("userId", userId);
+		procedure.addParameterInteger("id", dynamicId);
+		procedure.addParameterString("type", type);
+		procedure.addParameterInteger("isThumbUp", isThumbUp);
+
+		return procedure.exec();
+	}
+	
+	public static ProcedureResult queryDynamicComments_db_procedure(String dynamicId) throws Exception {
+
+		Procedure procedure = new Procedure("queryDynamicComments");
+
+		procedure.addParameterInteger("dynamicId", Integer.parseInt(dynamicId));
+
+		return procedure.exec();
+	}
+	
+	public static ProcedureResult addDynamicComments_db_procedure(String dynamicId,String commentsUserId,String commentsText,String replyId,String replyName,String commentsUserName) throws Exception {
+
+		Procedure procedure = new Procedure("addDynamicComments");
+
+		procedure.addParameterInteger("dynamicId", Integer.parseInt(dynamicId));
+		procedure.addParameterString("commentsUserId", commentsUserId);
+		procedure.addParameterString("commentsText", commentsText);
+		procedure.addParameterString("replyId", replyId);
+		procedure.addParameterString("replyName", replyName);
+		procedure.addParameterString("commentsUserName", commentsUserName);
+		
+
+		return procedure.exec();
+	}
+	
+	public static ProcedureResult deleteDynamicComments_db_procedure(String dynamicId) throws Exception {
+
+		Procedure procedure = new Procedure("deleteDynamicComments");
+
+		procedure.addParameterInteger("dynamicId", Integer.parseInt(dynamicId));
+
+		return procedure.exec();
+	}
 }

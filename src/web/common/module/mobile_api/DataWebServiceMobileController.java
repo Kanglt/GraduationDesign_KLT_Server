@@ -814,4 +814,114 @@ public class DataWebServiceMobileController {
 		return DataWebServiceOperations.queryPersonalDynamic_db_procedure(userId, dynamicId);
 	}
 
+	/**
+	 * 
+	* @Title: queryDynamicComments 
+	* @author 康良涛 
+	* @Description: TODO(查询动态的评论) 
+	* @param @param jsonDataStr
+	* @param @return
+	* @param @throws Exception
+	* @return String
+	* @throws
+	 */
+	@Access(handler = MobileUserAccessHandler.class)
+	@WebServiceMethod
+	public String queryDynamicComments(@Decrypt(handler = DecrptHandler.class) String jsonDataStr) throws Exception {
+
+		JSONObject jsonData = new JSONObject(jsonDataStr);
+		String dynamicId = null;
+		if (jsonData != null) {
+			dynamicId = jsonData.getString("dynamicId");
+		}
+
+		ProcedureResult pr = DataWebServiceMobileController.queryDynamicComments_db_procedure(dynamicId);
+
+		WebServiceMobileMessage msg = new WebServiceMobileMessage();
+		msg.put(Constants.LIST,pr.getListAsJSONArray());
+		return msg.toString();
+	}
+
+	public ProcedureResult queryDynamicComments_db_procedure(String dynamicId) throws Exception {
+
+		return DataWebServiceOperations.queryDynamicComments_db_procedure(dynamicId);
+	}
+	
+	
+	/**
+	 * 
+	* @Title: addDynamicComments 
+	* @author 康良涛 
+	* @Description: TODO(添加评论) 
+	* @param @param jsonDataStr
+	* @param @return
+	* @param @throws Exception
+	* @return String
+	* @throws
+	 */
+	@Access(handler = MobileUserAccessHandler.class)
+	@WebServiceMethod
+	public String addDynamicComments(@Decrypt(handler = DecrptHandler.class) String jsonDataStr) throws Exception {
+
+		JSONObject jsonData = new JSONObject(jsonDataStr);
+		String dynamicId = null;
+		String commentsUserId = null;
+		String commentsText = null;
+		String replyId = null;
+		String replyName = null;
+		String commentsUserName = null;
+		if (jsonData != null) {
+			dynamicId = jsonData.getString("dynamicId");
+			dynamicId = jsonData.getString("commentsUserId");
+			dynamicId = jsonData.getString("commentsText");
+			dynamicId = jsonData.getString("replyId");
+			replyName = jsonData.getString("replyName");
+			commentsUserName = jsonData.getString("commentsUserName");
+		}
+
+		ProcedureResult pr = DataWebServiceMobileController.addDynamicComments_db_procedure(dynamicId,commentsUserId,commentsText,replyId,replyName,commentsUserName);
+
+		WebServiceMobileMessage msg = new WebServiceMobileMessage();
+		msg.put(Constants.RECORD,pr.getRecordAsJSONObject());
+		return msg.toString();
+	}
+
+	public ProcedureResult addDynamicComments_db_procedure(String dynamicId,String commentsUserId,String commentsText,String replyId,String replyName,String commentsUserName) throws Exception {
+
+		return DataWebServiceOperations.addDynamicComments_db_procedure(dynamicId,commentsUserId,commentsText,replyId,replyName,commentsUserName);
+	}
+	
+	/**
+	 * 
+	* @Title: deleteDynamicComments 
+	* @author 康良涛 
+	* @Description: TODO(删除评论) 
+	* @param @param jsonDataStr
+	* @param @return
+	* @param @throws Exception
+	* @return String
+	* @throws
+	 */
+	@Access(handler = MobileUserAccessHandler.class)
+	@WebServiceMethod
+	public String deleteDynamicComments(@Decrypt(handler = DecrptHandler.class) String jsonDataStr) throws Exception {
+
+		JSONObject jsonData = new JSONObject(jsonDataStr);
+		String dynamicId = null;
+		if (jsonData != null) {
+			dynamicId = jsonData.getString("dynamicId");
+		}
+
+		ProcedureResult pr = DataWebServiceMobileController.deleteDynamicComments_db_procedure(dynamicId);
+
+		WebServiceMobileMessage msg = new WebServiceMobileMessage();
+		msg.put(Constants.RECORD,pr.getRecordAsJSONObject());
+		return msg.toString();
+	}
+
+	public ProcedureResult deleteDynamicComments_db_procedure(String dynamicId) throws Exception {
+
+		return DataWebServiceOperations.deleteDynamicComments_db_procedure(dynamicId);
+	}
+	
 }

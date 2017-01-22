@@ -451,4 +451,41 @@ public class UserWebServiceMobileController  {
 
 		return DataWebServiceOperations.queryPersonalInfo_db_procedure(userId,focusId);
 	}
+	
+	/**
+	 * 
+	* @Title: updateUserDynamicThumbUpNum 
+	* @author 康良涛 
+	* @Description: TODO(更新用户点赞) 
+	* @param @param jsonDataStr
+	* @param @return
+	* @param @throws Exception
+	* @return String
+	* @throws
+	 */
+	@Access(handler = MobileUserAccessHandler.class)
+	@WebServiceMethod
+	public String updateUserDynamicThumbUpNum(@Decrypt(handler = DecrptHandler.class) String jsonDataStr) throws Exception {
+
+		JSONObject jsonData = new JSONObject(jsonDataStr);
+		String userId=null;
+		String dynamicId=null;
+		String type=null;
+		if (jsonData != null) {
+			userId = jsonData.getString("userId");		
+			dynamicId = jsonData.getString("dynamicId");	
+			type = jsonData.getString("type");	
+		}
+
+		ProcedureResult pr = UserWebServiceMobileController.updateUserDynamicThumbUpNum_db_procedure(userId,Integer.parseInt(dynamicId),type);
+		
+		
+		WebServiceMobileMessage msg = new WebServiceMobileMessage();
+		msg.put(Constants.RECORD, pr.getRecordAsJSONObject());
+		return msg.toString();
+	}
+	public ProcedureResult updateUserDynamicThumbUpNum_db_procedure(String userId,int dynamicId,String type) throws Exception {
+
+		return DataWebServiceOperations.updateUserDynamicThumbUpNum_db_procedure(userId,dynamicId,type);
+	}
 }
