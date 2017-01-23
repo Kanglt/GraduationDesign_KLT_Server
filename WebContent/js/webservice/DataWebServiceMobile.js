@@ -159,3 +159,10 @@ DataWebServiceMobile.deleteDynamicComments=function(jsonDataStr,successfulCallba
 	var params = {jsonDataStr:jsonDataStr};
 	WebService.service("DataWebServiceMobile.service?deleteDynamicComments",params,successfulCallback,errorCallback);
 };
+
+DataWebServiceMobile.querySystemVersionInfomation=function(jsonDataStr,successfulCallback,errorCallback){
+	if(arguments.length!=3){
+		alert("调用DataWebServiceMobile.querySystemVersionInfomation方法时提供的参数个数不正确，该方法需要下列参数jsonDataStr,successCallback,errorCallback");return;}
+	var params = {jsonDataStr:jsonDataStr};
+	WebService.service("DataWebServiceMobile.service?querySystemVersionInfomation",params,successfulCallback,errorCallback);
+};

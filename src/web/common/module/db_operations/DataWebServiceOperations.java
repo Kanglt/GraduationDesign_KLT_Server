@@ -251,4 +251,13 @@ public class DataWebServiceOperations {
 
 		return procedure.exec();
 	}
+	
+	public static ProcedureResult querySystemVersionInfomation_db_procedure(String systemPlatform) throws Exception {
+
+		Procedure procedure = new Procedure("querySystemVersionInfomation");
+
+		procedure.addParameterString("systemPlatform", systemPlatform);
+
+		return procedure.exec();
+	}
 }

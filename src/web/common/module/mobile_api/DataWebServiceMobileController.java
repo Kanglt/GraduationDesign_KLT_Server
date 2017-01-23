@@ -872,9 +872,9 @@ public class DataWebServiceMobileController {
 		String commentsUserName = null;
 		if (jsonData != null) {
 			dynamicId = jsonData.getString("dynamicId");
-			dynamicId = jsonData.getString("commentsUserId");
-			dynamicId = jsonData.getString("commentsText");
-			dynamicId = jsonData.getString("replyId");
+			commentsUserId = jsonData.getString("commentsUserId");
+			commentsText = jsonData.getString("commentsText");
+			replyId = jsonData.getString("replyId");
 			replyName = jsonData.getString("replyName");
 			commentsUserName = jsonData.getString("commentsUserName");
 		}
@@ -922,6 +922,39 @@ public class DataWebServiceMobileController {
 	public ProcedureResult deleteDynamicComments_db_procedure(String dynamicId) throws Exception {
 
 		return DataWebServiceOperations.deleteDynamicComments_db_procedure(dynamicId);
+	}
+	
+	/**
+	 * 
+	* @Title: querySystemVersionInfomation 
+	* @author 康良涛 
+	* @Description: TODO(查询版本信息) 
+	* @param @param jsonDataStr
+	* @param @return
+	* @param @throws Exception
+	* @return String
+	* @throws
+	 */
+	@Access(handler = MobileUserAccessHandler.class)
+	@WebServiceMethod
+	public String querySystemVersionInfomation(@Decrypt(handler = DecrptHandler.class) String jsonDataStr) throws Exception {
+
+		JSONObject jsonData = new JSONObject(jsonDataStr);
+		String systemPlatform = null;
+		if (jsonData != null) {
+			systemPlatform = jsonData.getString("systemPlatform");
+		}
+
+		ProcedureResult pr = DataWebServiceMobileController.querySystemVersionInfomation_db_procedure(systemPlatform);
+
+		WebServiceMobileMessage msg = new WebServiceMobileMessage();
+		msg.put(Constants.RECORD,pr.getRecordAsJSONObject());
+		return msg.toString();
+	}
+
+	public ProcedureResult querySystemVersionInfomation_db_procedure(String systemPlatform) throws Exception {
+
+		return DataWebServiceOperations.querySystemVersionInfomation_db_procedure(systemPlatform);
 	}
 	
 }
