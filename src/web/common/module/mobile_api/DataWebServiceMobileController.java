@@ -957,4 +957,103 @@ public class DataWebServiceMobileController {
 		return DataWebServiceOperations.querySystemVersionInfomation_db_procedure(systemPlatform);
 	}
 	
+	/**
+	 * 
+	* @Title: queryActionStep 
+	* @author 康良涛 
+	* @Description: TODO(查询动作图解步骤) 
+	* @param @param jsonDataStr
+	* @param @return
+	* @param @throws Exception
+	* @return String
+	* @throws
+	 */
+	@Access(handler = MobileUserAccessHandler.class)
+	@WebServiceMethod
+	public String queryActionStep(@Decrypt(handler = DecrptHandler.class) String jsonDataStr) throws Exception {
+
+		JSONObject jsonData = new JSONObject(jsonDataStr);
+		String actionId = null;
+		if (jsonData != null) {
+			actionId = jsonData.getString("actionId");
+		}
+
+		ProcedureResult pr = DataWebServiceMobileController.queryActionStep_db_procedure(actionId);
+
+		WebServiceMobileMessage msg = new WebServiceMobileMessage();
+		msg.put(Constants.LIST,pr.getListAsJSONArray());
+		return msg.toString();
+	}
+
+	public ProcedureResult queryActionStep_db_procedure(String actionId) throws Exception {
+
+		return DataWebServiceOperations.queryActionStep_db_procedure(actionId);
+	}
+	
+	/**
+	 * 
+	* @Title: queryAction 
+	* @author 康良涛 
+	* @Description: TODO(查询训练动作) 
+	* @param @param jsonDataStr
+	* @param @return
+	* @param @throws Exception
+	* @return String
+	* @throws
+	 */
+	@Access(handler = MobileUserAccessHandler.class)
+	@WebServiceMethod
+	public String queryAction(@Decrypt(handler = DecrptHandler.class) String jsonDataStr) throws Exception {
+
+		JSONObject jsonData = new JSONObject(jsonDataStr);
+		
+		if (jsonData != null) {
+			
+		}
+
+		ProcedureResult pr = DataWebServiceMobileController.queryAction_db_procedure();
+
+		WebServiceMobileMessage msg = new WebServiceMobileMessage();
+		msg.put(Constants.LIST,pr.getListAsJSONArray());
+		return msg.toString();
+	}
+
+	public ProcedureResult queryAction_db_procedure() throws Exception {
+
+		return DataWebServiceOperations.queryAction_db_procedure();
+	}
+	
+	/**
+	 * 
+	* @Title: queryActivity 
+	* @author 康良涛 
+	* @Description: TODO(查询活动) 
+	* @param @param jsonDataStr
+	* @param @return
+	* @param @throws Exception
+	* @return String
+	* @throws
+	 */
+	@Access(handler = MobileUserAccessHandler.class)
+	@WebServiceMethod
+	public String queryActivity(@Decrypt(handler = DecrptHandler.class) String jsonDataStr) throws Exception {
+
+		JSONObject jsonData = new JSONObject(jsonDataStr);
+		String activityType=null;
+		if (jsonData != null) {
+			activityType=jsonData.getString("activityType");
+		}
+
+		ProcedureResult pr = DataWebServiceMobileController.queryActivity_db_procedure(activityType);
+
+		WebServiceMobileMessage msg = new WebServiceMobileMessage();
+		msg.put(Constants.LIST,pr.getListAsJSONArray());
+		return msg.toString();
+	}
+
+	public ProcedureResult queryActivity_db_procedure(String activityType) throws Exception {
+
+		return DataWebServiceOperations.queryActivity_db_procedure(activityType);
+	}
+	
 }

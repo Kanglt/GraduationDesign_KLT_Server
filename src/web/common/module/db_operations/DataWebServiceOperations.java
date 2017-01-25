@@ -260,4 +260,59 @@ public class DataWebServiceOperations {
 
 		return procedure.exec();
 	}
+	
+	public static ProcedureResult queryUserDiet_db_procedure(String userId) throws Exception {
+
+		Procedure procedure = new Procedure("queryUserDiet");
+
+		procedure.addParameterString("userId", userId);
+
+		return procedure.exec();
+	}
+	
+	public static ProcedureResult addUserDiet_db_procedure(String userId,String dietName) throws Exception {
+
+		Procedure procedure = new Procedure("addUserDiet");
+
+		procedure.addParameterString("userId", userId);
+		procedure.addParameterString("dietName", dietName);
+
+		return procedure.exec();
+	}
+	
+	public static ProcedureResult deleteUserDiet_db_procedure(String userId,String dietName) throws Exception {
+
+		Procedure procedure = new Procedure("deleteUserDiet");
+
+		procedure.addParameterString("userId", userId);
+		procedure.addParameterString("dietName", dietName);
+
+		return procedure.exec();
+	}	
+	
+	public static ProcedureResult queryActionStep_db_procedure(String actionId) throws Exception {
+
+		Procedure procedure = new Procedure("queryActionStep");
+
+		procedure.addParameterInteger("actionId", Integer.parseInt(actionId));
+		
+
+		return procedure.exec();
+	}	
+	
+	public static ProcedureResult queryAction_db_procedure() throws Exception {
+
+		Procedure procedure = new Procedure("queryAction");
+
+
+		return procedure.exec();
+	}	
+	
+	public static ProcedureResult queryActivity_db_procedure(String activityType) throws Exception {
+
+		Procedure procedure = new Procedure("queryActivity");
+
+		procedure.addParameterString("activityType", activityType);
+		return procedure.exec();
+	}
 }

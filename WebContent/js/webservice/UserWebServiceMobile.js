@@ -69,3 +69,24 @@ UserWebServiceMobile.updateUserDynamicThumbUpNum=function(jsonDataStr,successful
 	var params = {jsonDataStr:jsonDataStr};
 	WebService.service("UserWebServiceMobile.service?updateUserDynamicThumbUpNum",params,successfulCallback,errorCallback);
 };
+
+UserWebServiceMobile.queryUserDiet=function(jsonDataStr,successfulCallback,errorCallback){
+	if(arguments.length!=3){
+		alert("调用UserWebServiceMobile.queryUserDiet方法时提供的参数个数不正确，该方法需要下列参数jsonDataStr,successCallback,errorCallback");return;}
+	var params = {jsonDataStr:jsonDataStr};
+	WebService.service("UserWebServiceMobile.service?queryUserDiet",params,successfulCallback,errorCallback);
+};
+
+UserWebServiceMobile.addUserDiet=function(jsonDataStr,successfulCallback,errorCallback){
+	if(arguments.length!=3){
+		alert("调用UserWebServiceMobile.addUserDiet方法时提供的参数个数不正确，该方法需要下列参数jsonDataStr,successCallback,errorCallback");return;}
+	var params = {jsonDataStr:jsonDataStr};
+	WebService.service("UserWebServiceMobile.service?addUserDiet",params,successfulCallback,errorCallback);
+};
+
+UserWebServiceMobile.deleteUserDiet=function(jsonDataStr,successfulCallback,errorCallback){
+	if(arguments.length!=3){
+		alert("调用UserWebServiceMobile.deleteUserDiet方法时提供的参数个数不正确，该方法需要下列参数jsonDataStr,successCallback,errorCallback");return;}
+	var params = {jsonDataStr:jsonDataStr};
+	WebService.service("UserWebServiceMobile.service?deleteUserDiet",params,successfulCallback,errorCallback);
+};

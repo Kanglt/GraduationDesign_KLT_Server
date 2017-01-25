@@ -166,3 +166,24 @@ DataWebServiceMobile.querySystemVersionInfomation=function(jsonDataStr,successfu
 	var params = {jsonDataStr:jsonDataStr};
 	WebService.service("DataWebServiceMobile.service?querySystemVersionInfomation",params,successfulCallback,errorCallback);
 };
+
+DataWebServiceMobile.queryAction=function(jsonDataStr,successfulCallback,errorCallback){
+	if(arguments.length!=3){
+		alert("调用DataWebServiceMobile.queryAction方法时提供的参数个数不正确，该方法需要下列参数jsonDataStr,successCallback,errorCallback");return;}
+	var params = {jsonDataStr:jsonDataStr};
+	WebService.service("DataWebServiceMobile.service?queryAction",params,successfulCallback,errorCallback);
+};
+
+DataWebServiceMobile.queryActionStep=function(jsonDataStr,successfulCallback,errorCallback){
+	if(arguments.length!=3){
+		alert("调用DataWebServiceMobile.queryActionStep方法时提供的参数个数不正确，该方法需要下列参数jsonDataStr,successCallback,errorCallback");return;}
+	var params = {jsonDataStr:jsonDataStr};
+	WebService.service("DataWebServiceMobile.service?queryActionStep",params,successfulCallback,errorCallback);
+};
+
+DataWebServiceMobile.queryActivity=function(jsonDataStr,successfulCallback,errorCallback){
+	if(arguments.length!=3){
+		alert("调用DataWebServiceMobile.queryActivity方法时提供的参数个数不正确，该方法需要下列参数jsonDataStr,successCallback,errorCallback");return;}
+	var params = {jsonDataStr:jsonDataStr};
+	WebService.service("DataWebServiceMobile.service?queryActivity",params,successfulCallback,errorCallback);
+};

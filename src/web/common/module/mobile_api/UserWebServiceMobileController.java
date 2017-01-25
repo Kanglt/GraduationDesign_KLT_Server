@@ -488,4 +488,108 @@ public class UserWebServiceMobileController  {
 
 		return DataWebServiceOperations.updateUserDynamicThumbUpNum_db_procedure(userId,dynamicId,type);
 	}
+	
+	/**
+	 * 
+	* @Title: queryUserDiet 
+	* @author 康良涛 
+	* @Description: TODO(查询用户收藏饮食) 
+	* @param @param jsonDataStr
+	* @param @return
+	* @param @throws Exception
+	* @return String
+	* @throws
+	 */
+	@Access(handler = MobileUserAccessHandler.class)
+	@WebServiceMethod
+	public String queryUserDiet(@Decrypt(handler = DecrptHandler.class) String jsonDataStr) throws Exception {
+
+		JSONObject jsonData = new JSONObject(jsonDataStr);
+		String userId=null;
+		
+		if (jsonData != null) {
+			userId = jsonData.getString("userId");	
+		}
+
+		ProcedureResult pr = UserWebServiceMobileController.queryUserDiet_db_procedure(userId);
+		
+		
+		WebServiceMobileMessage msg = new WebServiceMobileMessage();
+		msg.put(Constants.LIST, pr.getListAsJSONArray());
+		return msg.toString();
+	}
+	public ProcedureResult queryUserDiet_db_procedure(String userId) throws Exception {
+
+		return DataWebServiceOperations.queryUserDiet_db_procedure(userId);
+	}
+	
+	/**
+	 * 
+	* @Title: addUserDiet 
+	* @author 康良涛 
+	* @Description: TODO(添加用户收藏饮食) 
+	* @param @param jsonDataStr
+	* @param @return
+	* @param @throws Exception
+	* @return String
+	* @throws
+	 */
+	@Access(handler = MobileUserAccessHandler.class)
+	@WebServiceMethod
+	public String addUserDiet(@Decrypt(handler = DecrptHandler.class) String jsonDataStr) throws Exception {
+
+		JSONObject jsonData = new JSONObject(jsonDataStr);
+		String userId=null;
+		String dietName=null;
+		if (jsonData != null) {
+			userId = jsonData.getString("userId");	
+			dietName = jsonData.getString("dietName");	
+		}
+
+		ProcedureResult pr = UserWebServiceMobileController.addUserDiet_db_procedure(userId,dietName);
+		
+		
+		WebServiceMobileMessage msg = new WebServiceMobileMessage();
+		msg.put(Constants.RECORD, pr.getRecordAsJSONObject());
+		return msg.toString();
+	}
+	public ProcedureResult addUserDiet_db_procedure(String userId,String dietName) throws Exception {
+
+		return DataWebServiceOperations.addUserDiet_db_procedure(userId,dietName);
+	}
+	
+	/**
+	 * 
+	* @Title: deleteUserDiet 
+	* @author 康良涛 
+	* @Description: TODO(取消饮食收藏) 
+	* @param @param jsonDataStr
+	* @param @return
+	* @param @throws Exception
+	* @return String
+	* @throws
+	 */
+	@Access(handler = MobileUserAccessHandler.class)
+	@WebServiceMethod
+	public String deleteUserDiet(@Decrypt(handler = DecrptHandler.class) String jsonDataStr) throws Exception {
+
+		JSONObject jsonData = new JSONObject(jsonDataStr);
+		String userId=null;
+		String dietName=null;
+		if (jsonData != null) {
+			userId = jsonData.getString("userId");	
+			dietName = jsonData.getString("dietName");	
+		}
+
+		ProcedureResult pr = UserWebServiceMobileController.deleteUserDiet_db_procedure(userId,dietName);
+		
+		
+		WebServiceMobileMessage msg = new WebServiceMobileMessage();
+		msg.put(Constants.RECORD, pr.getRecordAsJSONObject());
+		return msg.toString();
+	}
+	public ProcedureResult deleteUserDiet_db_procedure(String userId,String dietName) throws Exception {
+
+		return DataWebServiceOperations.deleteUserDiet_db_procedure(userId,dietName);
+	}
 }
