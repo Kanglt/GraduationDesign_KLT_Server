@@ -29,6 +29,16 @@ public class UserWebServiceOperations {
 		return procedure.exec();
 	}
 	
+	public static ProcedureResult registered_db_procedure(String userId,String userPassword) throws Exception {
+
+		Procedure procedure = new Procedure("registered");
+
+		procedure.addParameterString("userId", userId);
+		procedure.addParameterString("userPassword", userPassword);
+
+		return procedure.exec();
+	}
+	
 	public static ProcedureResult getDietData_foodMateria_db_procedure(String dietName) throws Exception {
 
 		Procedure procedure = new Procedure("queryDietData_foodMateria");

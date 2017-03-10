@@ -99,6 +99,45 @@ public class UserWebServiceMobileController  {
 
 		return UserWebServiceOperations.getUserLogin_db_procedure(userId);
 	}
+	
+	/**
+	 * 
+	* @Title: registered 
+	* @author 康良涛 
+	* @Description: TODO(注册) 
+	* @param @param jsonDataStr
+	* @param @return
+	* @param @throws Exception
+	* @return String
+	* @throws
+	 */
+	@Access(handler = MobileUserAccessHandler.class)
+	@WebServiceMethod
+	public String registered(@Decrypt(handler = DecrptHandler.class) String jsonDataStr) throws Exception {
+
+		JSONObject jsonData = new JSONObject(jsonDataStr);
+
+		String departmentId = null;
+		String userId = null;
+		String userPassword = null;
+		if (jsonData != null) {
+			userId = jsonData.getString("userId");
+			userPassword = jsonData.getString("userPassword");
+		}
+
+		
+
+		ProcedureResult pr = UserWebServiceMobileController.registered_db_procedure(userId,userPassword);
+
+		WebServiceMobileMessage msg = new WebServiceMobileMessage();
+		msg.put(Constants.RECORD, pr.getRecordAsJSONObject());
+		return msg.toString();
+	}
+
+	public ProcedureResult registered_db_procedure(String userId,String userPassword) throws Exception {
+
+		return UserWebServiceOperations.registered_db_procedure(userId,userPassword);
+	}
 
 	/**
 	 * 
